@@ -2,8 +2,12 @@ package salvo.battleship;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
+import sun.util.calendar.BaseCalendar;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -12,28 +16,25 @@ import static java.util.stream.Collectors.toList;
 
 
 @Entity
-public class Player {
+public class Game {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     private long id;
-    private String userName;
-    @OneToMany(mappedBy="player", fetch=FetchType.EAGER)
+    private Date date = new Date();
+    @OneToMany(mappedBy="game", fetch=FetchType.EAGER)
     Set<GamePlayer> GamePlayers=new LinkedHashSet<>();
 
-    public Player() { }
+    public Game() { }
 
-    public Player(String user) {
-        this.userName = user;
+
+    public void setDate(Date Data) {
+        this.date = Data;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName() {
-        this.userName = userName;
+    public Date getDate() {
+        return this.date;
     }
 
     public long getId() {
@@ -44,10 +45,6 @@ public class Player {
         this.id = id;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
     public Set<GamePlayer> getGamePlayers() {
         return GamePlayers;
     }
@@ -55,8 +52,9 @@ public class Player {
     public void setGamePlayers(Set<GamePlayer> gamePlayers) {
         GamePlayers = gamePlayers;
     }
-    @JsonIgnore
-    public List<Game> getGames() {
-        return GamePlayers.stream().map(sub -> sub.getGame()).collect(toList());
+
+
+    public List<Player> getPlayers() {
+        return GamePlayers.stream().map(sub -> sub.getPlayer()).collect(toList());
     }
 }
