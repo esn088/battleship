@@ -1,0 +1,23 @@
+body{
+    background-color: lavender;
+}
+table{
+    width: 90%;
+    border-collapse: collapse;
+}
+td, th { width: 100px; height: 35px;
+    border: #d3dfe0 1px solid;}
+tbody {
+    border: blue 5px solid;
+}
+.father{
+    display: flex;
+    flex-direction: row;
+    justify-content:left;
+}
+.son1{
+
+}
+.son2{
+
+}

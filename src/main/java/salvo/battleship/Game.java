@@ -26,7 +26,14 @@ public class Game {
     @OneToMany(mappedBy="game", fetch=FetchType.EAGER)
     Set<GamePlayer> GamePlayers=new LinkedHashSet<>();
 
+
+    @OneToMany(mappedBy="game", fetch=FetchType.EAGER)
+    Set<Score> scoreSet=new LinkedHashSet<>();
+
+
     public Game() { }
+
+
 
 
     public void setDate(Date Data) {
@@ -53,8 +60,16 @@ public class Game {
         GamePlayers = gamePlayers;
     }
 
-
     public List<Player> getPlayers() {
         return GamePlayers.stream().map(sub -> sub.getPlayer()).collect(toList());
     }
+    @JsonIgnore
+    public Set<Score> getScoreSet() {
+        return scoreSet;
+    }
+
+    public void setScoreSet(Set<Score> scoreSet) {
+        this.scoreSet = scoreSet;
+    }
+
 }

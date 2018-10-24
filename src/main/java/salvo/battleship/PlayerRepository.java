@@ -8,4 +8,5 @@ package salvo.battleship;
 @RepositoryRestResource
 public interface PlayerRepository extends JpaRepository<Player, Long> {
     List<Player> findByUserName(String userName);
+    List<Player> findByName(String Name);
 }
